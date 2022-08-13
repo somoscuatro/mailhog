@@ -1,0 +1,35 @@
+# Patch/diff artifacts.
+*.diff
+*.orig
+*.rej
+interdiff*.txt
+
+# emacs artifacts.
+*~
+\#*\#
+
+# VIM
+*.un~
+Session.vim
+.netrwhist
+*~
+*.swp
+.lvimrc
+
+# Hidden files.
+.DS*
+.project
+.idea/
+.vscode
+.history
+
+# Windows links.
+*.url
+*.lnk
+
+# logs
+*.log
+*/debug.log
+
+# Tags file
+tags
