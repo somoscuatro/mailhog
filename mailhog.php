@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Verse Custom
+ * Plugin Name: somoscuatro Mailhog.
  * Version: 1.0.0
  * Text Domain: somoscuatro-mailhog
  * Description: Simple WordPress plugin to capture emails through Mailhog.
@@ -28,28 +28,32 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $class The class name.
  */
 spl_autoload_register(
-	function ( $class ) {
-		$prefix   = __NAMESPACE__;
-		$base_dir = __DIR__ . '/src/';
-
-		// Does the class use the namespace prefix?
-		$len = strlen( $prefix );
-		if ( 0 !== strncmp( $prefix, $class, $len ) ) {
-			// No, move to the next registered autoloader.
+	function ( $class_name ) {
+		// Only autoload classes from this namespace.
+		if ( false === strpos( $class_name, __NAMESPACE__ ) ) {
 			return;
 		}
 
-		// Get the relative class name.
-		$relative_class = substr( $class, $len + 1 );
+		// Remove namespace from class name.
+		$class_file = str_replace( __NAMESPACE__ . '\\', '', $class_name );
 
-		// Replaces the namespace prefix with the base directory, replace namespace
-		// separators with directory separators in the relative class name, append
-		// with .php.
-		$file = $base_dir . 'class-' . strtolower( str_replace( '\\', '/', $relative_class ) ) . '.php';
+		// Convert class name format to file name format.
+		$class_file = strtolower( $class_file );
+		$class_file = str_replace( '_', '-', $class_file );
+
+		// Convert sub-namespaces into directories.
+		$class_path = explode( '\\', $class_file );
+		$class_file = array_pop( $class_path );
+		$class_path = implode( '/', $class_path );
+
+		$file = realpath( __DIR__ . '/src' . ( $class_path ? "/$class_path" : '' ) . '/class-' . $class_file . '.php' );
 
 		// If the file exists, require it.
 		if ( file_exists( $file ) ) {
-			require $file;
+			require_once $file;
+		} else {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( sprintf( 'File not found: %s', $file ), true );
 		}
 	}
 );
