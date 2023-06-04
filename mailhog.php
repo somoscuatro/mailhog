@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: somoscuatro Mailhog.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Text Domain: somoscuatro-mailhog
  * Description: Simple WordPress plugin to capture emails through Mailhog.
  * Author: somoscuatro
