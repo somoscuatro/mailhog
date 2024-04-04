@@ -2,7 +2,7 @@
 /**
  * Generic plugin lifetime and maintenance functionality.
  *
- * @package efiori-custom
+ * @package somoscuatro-mailhog
  */
 
 namespace Somoscuatro\Mailhog;
